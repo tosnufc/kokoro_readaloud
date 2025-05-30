@@ -3,20 +3,53 @@ import soundfile as sf
 import simpleaudio as sa
 import numpy as np
 import os
+import re
+
+def preprocess_text(text):
+    # Split text into sentences using common sentence endings
+    sentences = re.split(r'(?<=[.!?])\s+', text)
+    
+    # Process each sentence
+    processed_sentences = []
+    for sentence in sentences:
+        # Remove extra whitespace
+        sentence = sentence.strip()
+        if sentence:
+            # Replace multiple spaces with single space
+            sentence = re.sub(r'\s+', ' ', sentence)
+            # Add sentence to list
+            processed_sentences.append(sentence)
+    
+    # Join sentences with double newlines
+    return '\n\n'.join(processed_sentences)
 
 # Initialize TTS pipeline
 pipeline = KPipeline(lang_code='a')
-text = """If we were to remove torch, the program would fail when trying to import and use the kokoro package. The kokoro library uses PyTorch internally for:
-Neural network operations
-Audio processing
-Model inference
-So while we don't see torch in our code, it's an essential dependency that we need to keep in the requirements file."""
+text = """The problem is now fixed!
+
+« ALL dependencies, including a compatible
+version of numpy, are installed
+successfully.
+
+« Your script is ready to run and will use
+clipboard text as input.
+
+You can now copy any text and run your script.
+If you encounter any further issves or want
+more improvements, let me know!
+"""
+
+# Preprocess the text
+processed_text = preprocess_text(text)
+print("Processed text:")
+print(processed_text)
+print("\nGenerating audio...")
 
 # Create output directory
 os.makedirs('Output_audio', exist_ok=True)
 
 # Generate and save audio
-generator = pipeline(text, voice='af_heart')
+generator = pipeline(processed_text, voice='af_heart')
 all_audio_segments = []
 
 # Collect all audio segments
