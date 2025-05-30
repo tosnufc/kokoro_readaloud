@@ -8,7 +8,7 @@ This project provides a simple Text-to-Speech (TTS) script using the `kokoro` li
 - Uses the `kokoro` TTS pipeline with a specified voice
 - Saves the generated audio to a WAV file
 - Plays the audio automatically after generation
-
+- Runs efficiently on CPU-only systems (no GPU required)
 
 Install all requirements with:
 ```bash
