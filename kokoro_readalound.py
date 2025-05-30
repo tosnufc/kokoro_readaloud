@@ -4,6 +4,7 @@ import simpleaudio as sa
 import numpy as np
 import os
 import re
+import pyperclip
 
 def preprocess_text(text):
     # Split text into sentences using common sentence endings
@@ -25,23 +26,20 @@ def preprocess_text(text):
 
 # Initialize TTS pipeline
 pipeline = KPipeline(lang_code='a')
-text = """The problem is now fixed!
 
-« ALL dependencies, including a compatible
-version of numpy, are installed
-successfully.
+# Get text from clipboard
+text = pyperclip.paste()
+if not text:
+    print("No text found in clipboard. Please copy some text and try again.")
+    exit(1)
 
-« Your script is ready to run and will use
-clipboard text as input.
-
-You can now copy any text and run your script.
-If you encounter any further issves or want
-more improvements, let me know!
-"""
+print("Original text from clipboard:")
+print(text)
+print("\nProcessing text...")
 
 # Preprocess the text
 processed_text = preprocess_text(text)
-print("Processed text:")
+print("\nProcessed text:")
 print(processed_text)
 print("\nGenerating audio...")
 
