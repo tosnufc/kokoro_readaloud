@@ -1,3 +1,2 @@
 @echo off
-cd /d D:\dev\kokoro_readaloud
-start /B python pipeline_server.py 
+start /B d:/dev/kokoro_readaloud/.venv/Scripts/python.exe d:/dev/kokoro_readaloud/pipeline_server.py
