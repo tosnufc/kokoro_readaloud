@@ -1,2 +1,3 @@
 /Output_audio
 .venv
+*.pkl
