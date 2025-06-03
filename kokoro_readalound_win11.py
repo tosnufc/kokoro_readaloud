@@ -1,6 +1,6 @@
 from kokoro import KPipeline
 import soundfile as sf
-import simpleaudio as sa
+import pyaudio
 import numpy as np
 import os
 import re
@@ -62,9 +62,21 @@ combined_audio = np.concatenate(all_audio_segments)
 output_path = 'Output_audio/output.wav'
 sf.write(output_path, combined_audio, 24000)
 
-# Play the combined audio file
-data, samplerate = sf.read(output_path)
-audio_data = (data * 32767).astype(np.int16)
-play_obj = sa.play_buffer(audio_data, 1, 2, samplerate)
-play_obj.wait_done()
+# Play the combined audio file using PyAudio
+p = pyaudio.PyAudio()
+stream = p.open(format=pyaudio.get_format_from_width(2),  # 16-bit
+                channels=1,
+                rate=24000,
+                output=True)
 
+# Read the audio file
+data, samplerate = sf.read(output_path)
+audio_data = (data * 32767).astype(np.int16).tobytes()
+
+# Play the audio
+stream.write(audio_data)
+
+# Clean up
+stream.stop_stream()
+stream.close()
+p.terminate()
