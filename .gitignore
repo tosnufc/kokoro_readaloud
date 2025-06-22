@@ -1,3 +1,5 @@
 /Output_audio
 .venv
 *.pkl
+.specstory
+.cursorindexingignore
