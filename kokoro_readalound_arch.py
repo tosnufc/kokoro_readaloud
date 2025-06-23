@@ -24,8 +24,7 @@ def preprocess_text(text):
     # Join sentences with double newlines
     return '\n\n'.join(processed_sentences)
 
-# Initialize TTS pipeline
-pipeline = KPipeline(lang_code='a')
+
 
 # Get text from clipboard
 text = pyperclip.paste()
@@ -36,6 +35,9 @@ if not text:
 print("Original text from clipboard:")
 print(text)
 print("\nProcessing text...")
+
+# Initialize TTS pipeline
+pipeline = KPipeline(lang_code='a')
 
 # Preprocess the text
 processed_text = preprocess_text(text)
