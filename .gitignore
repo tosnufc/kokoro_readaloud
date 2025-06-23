@@ -3,3 +3,4 @@
 *.pkl
 .specstory
 .cursorindexingignore
+__pycache__/
